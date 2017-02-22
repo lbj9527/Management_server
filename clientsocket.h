@@ -2,6 +2,9 @@
 #define CLIENTSOCKET_H
 
 #include <QTcpSocket>
+#include <QSqlTableModel>
+
+//class QSqlTableModel;
 
 class QDate;
 class QTime;
@@ -17,6 +20,7 @@ private slots:
     void readClient();
 
 private:
+    QSqlTableModel *model;
     void generateRandomTrip(const QString &from, const QString &to,
                             const QDate &date, const QTime &time);
 
