@@ -17,9 +17,9 @@ bool createConnection()
 void createFakeData()
 {
     QSqlQuery query;
-    query.exec("DROP TABLE scooter");
+    query.exec("DROP TABLE scooter4");
 
-    query.exec("CREATE TABLE scooter ("
+    query.exec("CREATE TABLE scooter4 ("
                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                "name VARCHAR(40) NOT NULL, "
                "maxspeed INTEGER NOT NULL, "
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
     if (!createConnection())  //建立与数据库的链接
         return 1;
     if (create)
-        createFakeData();
+        createFakeData();   //在调用此函数的QSqlQuery前，必须先打开数据库
 
     return a.exec();
 }
