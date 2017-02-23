@@ -58,15 +58,15 @@ void ClientSocket::readClient()
 void ClientSocket::generateRandomTrip(const QString & /* from */,
         const QString & /* to */, const QDate &date, const QTime &time)
 {
-
-    model->setTable("scooter");   //与数据库中的表关联
-
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_3);
     quint16 duration = std::rand() % 200;
-    QSqlRecord record = model->record(1);
-    QString new_add_string = record.value("description").toString();
+
+    model->setTable("scooter");   //与数据库中的表关联
+    model->select();
+    QSqlRecord record = model->record(0);   //从表中取第一行
+    QString new_add_string = record.value("description").toString();  //取第一行的description字段的内容
     qDebug() << new_add_string;
 
     out << quint16(0) << date << time << duration << quint8(1)
