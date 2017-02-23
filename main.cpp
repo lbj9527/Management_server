@@ -1,6 +1,9 @@
 #include <QCoreApplication>
 #include <QtSql>
 #include <QMessageBox>
+#include "tripserver.h"
+#include "clientsocket.h"
+#include <iostream>
 
 bool createConnection()
 {
@@ -93,6 +96,12 @@ int main(int argc, char *argv[])
         return 1;
     if (create)
         createFakeData();   //在调用此函数的QSqlQuery前，必须先打开数据库
+
+    TripServer server;
+    if (!server.listen(QHostAddress::Any, 6178)) {
+        std::cerr << "Failed to bind to port" << std::endl;
+        return 1;
+    }
 
     return a.exec();
 }
